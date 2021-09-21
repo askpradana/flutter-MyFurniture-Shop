@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage> {
               ),
               itemCount: 18,
               itemBuilder: (BuildContext context, int index) {
-                return builCard();
+                return builCard(context, index);
               },
             ),
           ))
