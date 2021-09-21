@@ -95,7 +95,7 @@ buildPopularSection() {
         child: const Text(
           "View all",
           style: TextStyle(
-            color: Colors.orange,
+            color: Color(0xffe76f51),
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -120,13 +120,18 @@ class CustomFilterChip extends StatelessWidget {
       child: StreamBuilder(
         stream: chipsBloc.stateStream,
         builder: (context, snapshot) {
-          return FilterChip(
-            label: Text(namaMenu),
+          return ChoiceChip(
+            label: Text(
+              namaMenu,
+              style: TextStyle(
+                color: chipsBloc.chipsIsActive ? Colors.white : Colors.black,
+              ),
+            ),
             selected: chipsBloc.chipsIsActive,
             onSelected: (event) {
               chipsBloc.eventSink.add(event);
             },
-            selectedColor: Colors.orange,
+            selectedColor: const Color(0xffe76f51),
           );
         },
       ),

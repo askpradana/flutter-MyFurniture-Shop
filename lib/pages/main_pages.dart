@@ -48,15 +48,15 @@ class _MainPageState extends State<MainPage> {
               child: SizedBox(
             height: 500,
             child: GridView.builder(
+              // physics: const NeverScrollableScrollPhysics(),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
+                crossAxisSpacing: 2,
+                mainAxisSpacing: 2,
               ),
               itemCount: 18,
               itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: builCard(),
-                );
+                return builCard();
               },
             ),
           ))
