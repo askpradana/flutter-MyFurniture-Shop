@@ -35,7 +35,7 @@ builCard(context, index) {
 }
 
 buildImagesComponent() {
-  return Container(
+  return SizedBox(
     width: double.infinity,
     child: Image.asset(
       'assets/images/kursi.jpg',
