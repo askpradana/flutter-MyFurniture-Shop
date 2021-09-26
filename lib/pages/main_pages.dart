@@ -1,3 +1,4 @@
+import 'package:belajar_bloc2/bloc/bottomappbar_bloc.dart';
 import 'package:belajar_bloc2/pages/widgets/item_menu_widgets.dart';
 import 'package:belajar_bloc2/pages/widgets/main_pages_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,6 +22,7 @@ class _MainPageState extends State<MainPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        bottomNavigationBar: CustomBottomAppbar(),
         body: SafeArea(
           child: buildBodyMainPage(),
         ),
@@ -61,6 +63,51 @@ class _MainPageState extends State<MainPage> {
             ),
           ))
         ],
+      ),
+    );
+  }
+}
+
+class CustomBottomAppbar extends StatelessWidget {
+  const CustomBottomAppbar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      shape: const CircularNotchedRectangle(),
+      child: SizedBox(
+        height: 30,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.home,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.explore,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.person,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.shopping_cart,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -4,10 +4,6 @@ import 'package:flutter/material.dart';
 builCard(context, index) {
   return GestureDetector(
     onTap: () {
-      // final snackBar = SnackBar(
-      //   content: Text('Yay! A SnackBar! nomor : $index'),
-      // );
-      // ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Navigator.push(
         context,
         MaterialPageRoute(
