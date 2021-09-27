@@ -3,4 +3,3 @@ Orange : e76f51
 
 1. Item_pages fitur like nya pakein bloc
 2. pakein backend biar item bervariasi
-3. clickable bottomapbar

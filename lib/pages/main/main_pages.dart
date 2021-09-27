@@ -37,6 +37,7 @@ class _MainPageState extends State<MainPage> {
       home: Scaffold(
         bottomNavigationBar: CustomBottomAppbar(
           selectedIndex: selectedIndex,
+          pageController: _pageController,
         ),
         body: SafeArea(
           child: PageView(

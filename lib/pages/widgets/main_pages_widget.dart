@@ -1,6 +1,4 @@
 import 'package:belajar_bloc2/bloc/chips_bloc.dart';
-import 'package:belajar_bloc2/pages/main/explore_pages.dart';
-import 'package:belajar_bloc2/pages/main/main_pages.dart';
 import 'package:belajar_bloc2/pages/widgets/item_pages.dart';
 import 'package:flutter/material.dart';
 
@@ -155,12 +153,14 @@ class _CustomFilterChipState extends State<CustomFilterChip> {
 }
 
 class CustomBottomAppbar extends StatefulWidget {
-  const CustomBottomAppbar({
+  CustomBottomAppbar({
     Key? key,
-    this.selectedIndex,
+    required this.selectedIndex,
+    required this.pageController,
   }) : super(key: key);
 
-  final int? selectedIndex;
+  int selectedIndex;
+  PageController pageController;
 
   @override
   State<CustomBottomAppbar> createState() => _CustomBottomAppbarState();
@@ -177,28 +177,60 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  widget.pageController.animateToPage(
+                    0,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.ease,
+                  );
+                });
+              },
               icon: Icon(
                 Icons.home,
                 color: widget.selectedIndex == 0 ? Colors.red : Colors.black,
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  widget.pageController.animateToPage(
+                    1,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.ease,
+                  );
+                });
+              },
               icon: Icon(
                 Icons.explore,
                 color: widget.selectedIndex == 1 ? Colors.red : Colors.black,
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  widget.pageController.animateToPage(
+                    2,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.ease,
+                  );
+                });
+              },
               icon: Icon(
                 Icons.person,
                 color: widget.selectedIndex == 2 ? Colors.red : Colors.black,
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  widget.pageController.animateToPage(
+                    3,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.ease,
+                  );
+                });
+              },
               icon: Icon(
                 Icons.shopping_cart,
                 color: widget.selectedIndex == 3 ? Colors.red : Colors.black,
