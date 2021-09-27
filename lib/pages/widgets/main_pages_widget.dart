@@ -153,42 +153,27 @@ class _CustomFilterChipState extends State<CustomFilterChip> {
 }
 
 class CustomBottomAppbar extends StatefulWidget {
-  CustomBottomAppbar({
+  const CustomBottomAppbar({
     Key? key,
     required this.selectedIndex,
     required this.pageController,
   }) : super(key: key);
 
-  int selectedIndex;
-  PageController pageController;
+  final int selectedIndex;
+  final PageController pageController;
 
   @override
   State<CustomBottomAppbar> createState() => _CustomBottomAppbarState();
 }
 
 class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
-  isIconButtonNull() {
-    return IconButton(
-      onPressed: () {
-        setState(() {
-          widget.pageController.animateToPage(
-            0,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.ease,
-          );
-        });
-      },
-      icon: const Icon(Icons.home),
-    );
-  }
-
   iconIsNotSelected(int nomor, dynamic ikon) {
     return IconButton(
       onPressed: () {
         setState(() {
           widget.pageController.animateToPage(
             nomor,
-            duration: const Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: 750),
             curve: Curves.ease,
           );
         });
@@ -215,26 +200,6 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
     );
   }
 
-  iconExploreNotNull() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      // ignore: prefer_const_literals_to_create_immutables
-      children: [
-        const IconButton(
-          onPressed: null,
-          disabledColor: Colors.red,
-          icon: Icon(
-            Icons.explore,
-          ),
-        ),
-        const Text(
-          "Explore",
-          textAlign: TextAlign.center,
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -244,38 +209,18 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            //TODO: Pake container isi row kayanya biar bisa ada title di button
-
             widget.selectedIndex == 0
                 ? iconIsSelected(Icons.home, 'Home')
                 : iconIsNotSelected(0, Icons.home),
-
             widget.selectedIndex == 1
                 ? iconIsSelected(Icons.explore, 'Explore')
                 : iconIsNotSelected(1, Icons.explore),
-
             widget.selectedIndex == 2
                 ? iconIsSelected(Icons.person, 'Profile')
                 : iconIsNotSelected(2, Icons.person),
-
             widget.selectedIndex == 3
                 ? iconIsSelected(Icons.shopping_cart, 'Wishlist')
                 : iconIsNotSelected(3, Icons.shopping_cart),
-            // IconButton(
-            //   onPressed: () {
-            //     setState(() {
-            //       widget.pageController.animateToPage(
-            //         1,
-            //         duration: const Duration(milliseconds: 500),
-            //         curve: Curves.ease,
-            //       );
-            //     });
-            //   },
-            //   icon: Icon(
-            //     Icons.explore,
-            //     color: widget.selectedIndex == 1 ? Colors.red : Colors.black,
-            //   ),
-            // ),
           ],
         ),
       ),
