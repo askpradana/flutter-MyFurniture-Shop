@@ -1,4 +1,4 @@
-import 'package:belajar_bloc2/pages/main_pages.dart';
+import 'package:belajar_bloc2/pages/main/main_pages.dart';
 import 'package:flutter/material.dart';
 
 void main() {

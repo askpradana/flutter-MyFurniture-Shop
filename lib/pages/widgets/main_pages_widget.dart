@@ -1,4 +1,5 @@
 import 'package:belajar_bloc2/bloc/chips_bloc.dart';
+import 'package:belajar_bloc2/pages/widgets/item_pages.dart';
 import 'package:flutter/material.dart';
 
 buildMenuBar() {
@@ -146,6 +147,118 @@ class _CustomFilterChipState extends State<CustomFilterChip> {
             selectedColor: const Color(0xffe76f51),
           );
         },
+      ),
+    );
+  }
+}
+
+class CustomBottomAppbar extends StatelessWidget {
+  const CustomBottomAppbar({
+    Key? key,
+  }) : super(key: key);
+
+  // final bottomAppBarBloc = BottomAppBarBloc();
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomAppBar(
+      shape: const CircularNotchedRectangle(),
+      child: SizedBox(
+        height: 30,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.home,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.explore,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.person,
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.shopping_cart,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BuildListBarang extends StatelessWidget {
+  const BuildListBarang({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        child: SizedBox(
+      height: 500,
+      child: GridView.builder(
+        // physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 2,
+          mainAxisSpacing: 2,
+        ),
+        itemCount: 18,
+        itemBuilder: (BuildContext context, int index) {
+          return builCard(context, index);
+        },
+      ),
+    ));
+  }
+
+  builCard(context, index) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ItemPage(
+              index: index,
+            ),
+          ),
+        );
+      },
+      child: Card(
+        child: Column(
+          children: [
+            Expanded(
+              flex: 4,
+              child: buildImagesComponent(),
+            ),
+            const Expanded(
+              flex: 1,
+              child: Text("Judul barang"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  buildImagesComponent() {
+    return SizedBox(
+      width: double.infinity,
+      child: Image.asset(
+        'assets/images/kursi.jpg',
+        fit: BoxFit.fitWidth,
       ),
     );
   }
