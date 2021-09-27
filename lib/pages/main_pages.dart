@@ -1,4 +1,6 @@
 import 'package:belajar_bloc2/bloc/bottomappbar_bloc.dart';
+import 'package:belajar_bloc2/bloc/chips_bloc.dart';
+import 'package:belajar_bloc2/pages/explore_pages.dart';
 import 'package:belajar_bloc2/pages/widgets/item_menu_widgets.dart';
 import 'package:belajar_bloc2/pages/widgets/main_pages_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,17 +17,33 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final TextEditingController _controller = TextEditingController();
+  final PageController _pageController = PageController(
+    initialPage: 0,
+  );
+
+  final TextEditingController _textController = TextEditingController();
+  final explorePage = const Explore();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        bottomNavigationBar: CustomBottomAppbar(),
+        bottomNavigationBar: const CustomBottomAppbar(),
         body: SafeArea(
-          child: buildBodyMainPage(),
-        ),
+            child: PageView(
+          controller: _pageController,
+          children: [
+            buildBodyMainPage(),
+            explorePage,
+          ],
+        )),
       ),
     );
   }
@@ -43,7 +61,7 @@ class _MainPageState extends State<MainPage> {
         children: [
           buildMenuBar(),
           buildTitleMainPage(),
-          buildSearchBar(_controller),
+          buildSearchBar(_textController),
           buildFilterMenu(),
           buildPopularSection(),
           Expanded(
@@ -72,6 +90,8 @@ class CustomBottomAppbar extends StatelessWidget {
   const CustomBottomAppbar({
     Key? key,
   }) : super(key: key);
+
+  // final bottomAppBarBloc = BottomAppBarBloc();
 
   @override
   Widget build(BuildContext context) {

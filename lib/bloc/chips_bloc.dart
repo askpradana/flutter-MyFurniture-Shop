@@ -3,6 +3,11 @@ import 'dart:async';
 class ChipsBloc {
   late bool chipsIsActive;
 
+  closeStream() {
+    _eventStreamController.close();
+    _stateStreamController.close();
+  }
+
   final _eventStreamController = StreamController<bool>();
   StreamSink<bool> get eventSink => _eventStreamController.sink;
   Stream<bool> get eventStream => _eventStreamController.stream;

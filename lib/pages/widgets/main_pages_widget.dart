@@ -104,14 +104,26 @@ buildPopularSection() {
   );
 }
 
-class CustomFilterChip extends StatelessWidget {
+class CustomFilterChip extends StatefulWidget {
   CustomFilterChip({
     Key? key,
     required this.namaMenu,
   }) : super(key: key);
 
   final String namaMenu;
+
+  @override
+  State<CustomFilterChip> createState() => _CustomFilterChipState();
+}
+
+class _CustomFilterChipState extends State<CustomFilterChip> {
   final chipsBloc = ChipsBloc();
+
+  @override
+  void dispose() {
+    chipsBloc.closeStream();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +134,7 @@ class CustomFilterChip extends StatelessWidget {
         builder: (context, snapshot) {
           return ChoiceChip(
             label: Text(
-              namaMenu,
+              widget.namaMenu,
               style: TextStyle(
                 color: chipsBloc.chipsIsActive ? Colors.white : Colors.black,
               ),
