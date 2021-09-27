@@ -1,4 +1,6 @@
 import 'package:belajar_bloc2/bloc/chips_bloc.dart';
+import 'package:belajar_bloc2/pages/main/explore_pages.dart';
+import 'package:belajar_bloc2/pages/main/main_pages.dart';
 import 'package:belajar_bloc2/pages/widgets/item_pages.dart';
 import 'package:flutter/material.dart';
 
@@ -152,13 +154,19 @@ class _CustomFilterChipState extends State<CustomFilterChip> {
   }
 }
 
-class CustomBottomAppbar extends StatelessWidget {
+class CustomBottomAppbar extends StatefulWidget {
   const CustomBottomAppbar({
     Key? key,
+    this.selectedIndex,
   }) : super(key: key);
 
-  // final bottomAppBarBloc = BottomAppBarBloc();
+  final int? selectedIndex;
 
+  @override
+  State<CustomBottomAppbar> createState() => _CustomBottomAppbarState();
+}
+
+class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
@@ -170,26 +178,30 @@ class CustomBottomAppbar extends StatelessWidget {
           children: <Widget>[
             IconButton(
               onPressed: () {},
-              icon: const Icon(
+              icon: Icon(
                 Icons.home,
+                color: widget.selectedIndex == 0 ? Colors.red : Colors.black,
               ),
             ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(
+              icon: Icon(
                 Icons.explore,
+                color: widget.selectedIndex == 1 ? Colors.red : Colors.black,
               ),
             ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(
+              icon: Icon(
                 Icons.person,
+                color: widget.selectedIndex == 2 ? Colors.red : Colors.black,
               ),
             ),
             IconButton(
               onPressed: () {},
-              icon: const Icon(
+              icon: Icon(
                 Icons.shopping_cart,
+                color: widget.selectedIndex == 3 ? Colors.red : Colors.black,
               ),
             ),
           ],

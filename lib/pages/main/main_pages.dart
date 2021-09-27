@@ -16,9 +16,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final PageController _pageController = PageController(
-    initialPage: 0,
-  );
+  final PageController _pageController = PageController();
+  int selectedIndex = 0;
 
   final TextEditingController _textController = TextEditingController();
   final explorePage = const Explore();
@@ -36,17 +35,26 @@ class _MainPageState extends State<MainPage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        bottomNavigationBar: const CustomBottomAppbar(),
+        bottomNavigationBar: CustomBottomAppbar(
+          selectedIndex: selectedIndex,
+        ),
         body: SafeArea(
-            child: PageView(
-          controller: _pageController,
-          children: [
-            buildBodyMainPage(),
-            explorePage,
-            profilePage,
-            wishlistPage,
-          ],
-        )),
+          child: PageView(
+            controller: _pageController,
+            children: [
+              buildBodyMainPage(),
+              explorePage,
+              profilePage,
+              wishlistPage,
+            ],
+            onPageChanged: (page) {
+              setState(() {
+                selectedIndex = page;
+              });
+            },
+            physics: const BouncingScrollPhysics(),
+          ),
+        ),
       ),
     );
   }
