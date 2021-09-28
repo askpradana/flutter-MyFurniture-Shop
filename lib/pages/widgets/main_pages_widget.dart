@@ -140,6 +140,7 @@ class _CustomFilterChipState extends State<CustomFilterChip> {
                 color: chipsBloc.chipsIsActive ? Colors.white : Colors.black,
               ),
             ),
+            elevation: 0,
             selected: chipsBloc.chipsIsActive,
             onSelected: (event) {
               chipsBloc.eventSink.add(event);
@@ -203,7 +204,6 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      shape: const CircularNotchedRectangle(),
       child: SizedBox(
         height: 30,
         child: Row(
