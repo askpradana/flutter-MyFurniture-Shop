@@ -1,5 +1,5 @@
 import 'package:belajar_bloc2/bloc/chips_bloc.dart';
-import 'package:belajar_bloc2/pages/widgets/item_pages.dart';
+import 'package:belajar_bloc2/pages/main/item_pages.dart';
 import 'package:flutter/material.dart';
 
 buildMenuBar() {

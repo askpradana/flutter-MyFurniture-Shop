@@ -108,23 +108,27 @@ class _ItemPageState extends State<ItemPage> {
             color: Color(0xffe76f51),
           ),
         ),
-        Row(
-          // ignore: prefer_const_literals_to_create_immutables
-          children: [
-            const Icon(
-              Icons.remove_outlined,
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 10,
-              ),
-              child: Text("01"),
-            ),
-            const Icon(
-              Icons.add_outlined,
-            ),
-          ],
-        ),
+        StreamBuilder(
+            stream: null,
+            builder: (context, snapshot) {
+              return Row(
+                // ignore: prefer_const_literals_to_create_immutables
+                children: [
+                  const Icon(
+                    Icons.remove_outlined,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                    ),
+                    child: Text("1"),
+                  ),
+                  const Icon(
+                    Icons.add_outlined,
+                  ),
+                ],
+              );
+            }),
       ],
     );
   }
