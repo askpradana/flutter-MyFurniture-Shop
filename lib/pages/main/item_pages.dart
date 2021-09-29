@@ -1,11 +1,12 @@
 import 'package:belajar_bloc2/bloc/is_liked_bloc.dart';
+import 'package:belajar_bloc2/bloc/jumlahbarang_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
 
 class ItemPage extends StatefulWidget {
-  const ItemPage({
+  ItemPage({
     Key? key,
     this.index,
     this.datanya,
@@ -18,16 +19,22 @@ class ItemPage extends StatefulWidget {
 }
 
 class _ItemPageState extends State<ItemPage> {
+  final kuantitasBloc = JumlahBarangBloc();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: bikinBodyItemPage(widget.datanya),
+        child: bikinBodyItemPage(
+          widget.datanya,
+          kuantitasBloc.stateStream,
+          kuantitasBloc.eventSink,
+        ),
       ),
     );
   }
 
-  bikinBodyItemPage(datanya) {
+  bikinBodyItemPage(datanya, untukstream, eventSink) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 5,
@@ -40,7 +47,7 @@ class _ItemPageState extends State<ItemPage> {
             buildItemPagesAppbar(),
             buildGambarBarang(),
             buildNamaBarang(datanya),
-            buildHargaDanKuantitas(datanya),
+            buildHargaDanKuantitas(datanya, untukstream, eventSink),
             buildDeskripsiItem(datanya),
             buildTombolBuyNow(),
           ],
@@ -98,7 +105,7 @@ class _ItemPageState extends State<ItemPage> {
     );
   }
 
-  buildHargaDanKuantitas(datanya) {
+  buildHargaDanKuantitas(datanya, untukstream, eventSink) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -111,23 +118,31 @@ class _ItemPageState extends State<ItemPage> {
           ),
         ),
         StreamBuilder(
-            stream: null,
+            stream: untukstream,
             builder: (context, snapshot) {
               return Row(
-                // ignore: prefer_const_literals_to_create_immutables
                 children: [
-                  //TODO: Bikin fungsi tambah kurang kuantitas
-                  const Icon(
-                    Icons.remove_outlined,
+                  IconButton(
+                    onPressed: () {
+                      eventSink.add(JumlahBarang.kurang);
+                    },
+                    icon: const Icon(Icons.remove_outlined),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
                       horizontal: 10,
                     ),
-                    child: Text("1"),
+                    child: Text(
+                      snapshot.hasData ? '${snapshot.data}' : '1',
+                    ),
                   ),
-                  const Icon(
-                    Icons.add_outlined,
+                  IconButton(
+                    onPressed: () {
+                      eventSink.add(JumlahBarang.tambah);
+                    },
+                    icon: const Icon(
+                      Icons.add_outlined,
+                    ),
                   ),
                 ],
               );

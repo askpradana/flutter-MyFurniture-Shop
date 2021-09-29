@@ -16,7 +16,7 @@ class JumlahBarangBloc {
   Stream<int> get stateStream => _stateStreamController.stream;
 
   JumlahBarangBloc() {
-    kuantitasBarang = 0;
+    kuantitasBarang = 1;
     eventStream.listen(
       (event) {
         if (event == JumlahBarang.tambah) {
