@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class ModelBarang {
   final String namabarang;
   final String gambarbarang;

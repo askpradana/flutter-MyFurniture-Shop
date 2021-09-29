@@ -8,8 +8,10 @@ class ItemPage extends StatefulWidget {
   const ItemPage({
     Key? key,
     this.index,
+    this.datanya,
   }) : super(key: key);
   final dynamic index;
+  final dynamic datanya;
 
   @override
   _ItemPageState createState() => _ItemPageState();
@@ -20,12 +22,12 @@ class _ItemPageState extends State<ItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: bikinBodyItemPage(),
+        child: bikinBodyItemPage(widget.datanya),
       ),
     );
   }
 
-  bikinBodyItemPage() {
+  bikinBodyItemPage(datanya) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 5,
@@ -37,9 +39,9 @@ class _ItemPageState extends State<ItemPage> {
           children: [
             buildItemPagesAppbar(),
             buildGambarBarang(),
-            buildNamaBarang(),
-            buildHargaDanKuantitas(),
-            buildDeskripsiItem(),
+            buildNamaBarang(datanya),
+            buildHargaDanKuantitas(datanya),
+            buildDeskripsiItem(datanya),
             buildTombolBuyNow(),
           ],
         ),
@@ -78,16 +80,16 @@ class _ItemPageState extends State<ItemPage> {
     );
   }
 
-  buildNamaBarang() {
-    return const SizedBox(
+  buildNamaBarang(datanya) {
+    return SizedBox(
       width: double.infinity,
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           vertical: 20,
         ),
         child: Text(
-          "Nama barang",
-          style: TextStyle(
+          "Nama barang : ${datanya.namabarang}",
+          style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -96,13 +98,13 @@ class _ItemPageState extends State<ItemPage> {
     );
   }
 
-  buildHargaDanKuantitas() {
+  buildHargaDanKuantitas(datanya) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Text(
-          "\$80.00",
-          style: TextStyle(
+        Text(
+          "\$${datanya.hargabarang}",
+          style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
             color: Color(0xffe76f51),
@@ -114,6 +116,7 @@ class _ItemPageState extends State<ItemPage> {
               return Row(
                 // ignore: prefer_const_literals_to_create_immutables
                 children: [
+                  //TODO: Bikin fungsi tambah kurang kuantitas
                   const Icon(
                     Icons.remove_outlined,
                   ),
@@ -133,14 +136,14 @@ class _ItemPageState extends State<ItemPage> {
     );
   }
 
-  buildDeskripsiItem() {
-    return const Padding(
-      padding: EdgeInsets.symmetric(
+  buildDeskripsiItem(datanya) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
         vertical: 20,
       ),
       child: Text(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Si verbum sequimur, primum longius verbum praepositum quam bonum. At certe gravius. Quis enim est, qui non videat haec esse in natura rerum tria? Duo Reges: constructio interrete. ",
-        style: TextStyle(
+        datanya.deskripsibarang,
+        style: const TextStyle(
           color: Colors.grey,
           fontSize: 18,
         ),

@@ -1,6 +1,10 @@
+import 'package:belajar_bloc2/api/web_service.dart';
 import 'package:belajar_bloc2/bloc/chips_bloc.dart';
+import 'package:belajar_bloc2/model/model.dart';
 import 'package:belajar_bloc2/pages/main/item_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 
 buildMenuBar() {
   return const Padding(
@@ -228,67 +232,164 @@ class _CustomBottomAppbarState extends State<CustomBottomAppbar> {
   }
 }
 
-class BuildListBarang extends StatelessWidget {
+class BuildListBarang extends StatefulWidget {
   const BuildListBarang({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<BuildListBarang> createState() => _BuildListBarangState();
+}
+
+class _BuildListBarangState extends State<BuildListBarang> {
+  late Future<ModelBarang> futureModelBarang;
+  int nomorbarang = 100;
+
+  @override
+  void initState() {
+    super.initState();
+    futureModelBarang = fetchBarang(nomorbarang);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    return FutureBuilder<ModelBarang>(
+      future: futureModelBarang,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return buildGridView(context, snapshot.data!);
+        } else if (snapshot.hasError) {
+          return Text("Error : ${snapshot.error}");
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  buildGridView(context, datanya) {
     return Expanded(
-        child: SizedBox(
-      height: 500,
       child: GridView.builder(
-        // physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 2,
-          mainAxisSpacing: 2,
         ),
-        itemCount: 18,
+        itemCount: 8,
         itemBuilder: (BuildContext context, int index) {
-          return builCard(context, index);
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ItemPage(
+                    index: index,
+                    datanya: datanya,
+                  ),
+                ),
+              );
+            },
+            child: Card(
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: Image.network(
+                      datanya.gambarbarang.toString(),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Container(
+                    color: Colors.white,
+                    width: double.infinity,
+                    height: 40,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(datanya.namabarang),
+                              Text('\$${datanya.hargabarang}'),
+                            ],
+                          ),
+                          const Icon(
+                            Icons.add_circle_outlined,
+                            color: Colors.orange,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
         },
       ),
-    ));
-  }
-
-  builCard(context, index) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ItemPage(
-              index: index,
-            ),
-          ),
-        );
-      },
-      child: Card(
-        child: Column(
-          children: [
-            Expanded(
-              flex: 4,
-              child: buildImagesComponent(),
-            ),
-            const Expanded(
-              flex: 1,
-              child: Text("Judul barang"),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
-  buildImagesComponent() {
-    return SizedBox(
-      width: double.infinity,
-      child: Image.asset(
-        'assets/images/kursi.jpg',
-        fit: BoxFit.fitWidth,
-      ),
-    );
-  }
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Expanded(
+  //       child: SizedBox(
+  //     height: 500,
+  //     child: GridView.builder(
+  //       // physics: const NeverScrollableScrollPhysics(),
+  //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //         crossAxisCount: 2,
+  //         crossAxisSpacing: 2,
+  //         mainAxisSpacing: 2,
+  //       ),
+  //       itemCount: 18,
+  //       itemBuilder: (BuildContext context, int index) {
+  //         return builCard(context, index);
+  //       },
+  //     ),
+  //   ));
+  // }
+
+  // builCard(context, index) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => ItemPage(
+  //             index: index,
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //     child: Card(
+  //       child: Column(
+  //         children: [
+  //           Expanded(
+  //             flex: 4,
+  //             child: buildImagesComponent(),
+  //           ),
+  //           const Expanded(
+  //             flex: 1,
+  //             child: Text("Judul barang"),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
+  // buildImagesComponent() {
+  //   return SizedBox(
+  //     width: double.infinity,
+  //     child: Image.asset(
+  //       'assets/images/kursi.jpg',
+  //       fit: BoxFit.fitWidth,
+  //     ),
+  //   );
+  // }
 }

@@ -75,7 +75,7 @@ class _MainPageState extends State<MainPage> {
           buildSearchBar(_textController),
           buildFilterMenu(),
           buildPopularSection(),
-          const BuildListBarang()
+          BuildListBarang()
         ],
       ),
     );
