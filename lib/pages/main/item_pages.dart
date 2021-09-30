@@ -27,6 +27,7 @@ class _ItemPageState extends State<ItemPage> {
       body: SafeArea(
         child: bikinBodyItemPage(
           widget.datanya,
+          widget.index,
           kuantitasBloc.stateStream,
           kuantitasBloc.eventSink,
         ),
@@ -34,7 +35,7 @@ class _ItemPageState extends State<ItemPage> {
     );
   }
 
-  bikinBodyItemPage(datanya, untukstream, eventSink) {
+  bikinBodyItemPage(datanya, index, untukstream, eventSink) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 5,
@@ -45,11 +46,11 @@ class _ItemPageState extends State<ItemPage> {
         child: Column(
           children: [
             buildItemPagesAppbar(),
-            buildGambarBarang(),
-            buildNamaBarang(datanya),
-            buildHargaDanKuantitas(datanya, untukstream, eventSink),
-            buildDeskripsiItem(datanya),
-            buildTombolBuyNow(),
+            buildGambarBarang(datanya, index),
+            // buildNamaBarang(datanya),
+            // buildHargaDanKuantitas(datanya, untukstream, eventSink),
+            // buildDeskripsiItem(datanya),
+            // buildTombolBuyNow(),
           ],
         ),
       ),
@@ -80,9 +81,10 @@ class _ItemPageState extends State<ItemPage> {
     );
   }
 
-  buildGambarBarang() {
+  buildGambarBarang(index, datanya) {
     return Image.asset(
-      'assets/images/kursi.jpg',
+      // 'assets/images/kursi.jpg',
+      datanya[0].namabarang,
       fit: BoxFit.cover,
     );
   }

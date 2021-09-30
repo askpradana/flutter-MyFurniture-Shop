@@ -5,6 +5,7 @@ import 'package:belajar_bloc2/pages/main/item_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:http/http.dart' as http;
 
 buildMenuBar() {
   return const Padding(
@@ -242,24 +243,15 @@ class BuildListBarang extends StatefulWidget {
 }
 
 class _BuildListBarangState extends State<BuildListBarang> {
-  late Future<ModelBarang> futureModelBarang;
-  int nomorbarang = 100;
-
-  @override
-  void initState() {
-    super.initState();
-    futureModelBarang = fetchBarang(nomorbarang);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<ModelBarang>(
-      future: futureModelBarang,
+    return FutureBuilder<List<ModelBarang>>(
+      future: fetchToko(http.Client()),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return buildGridView(context, snapshot.data!);
         } else if (snapshot.hasError) {
-          return Text("Error : ${snapshot.error}");
+          return Text("Errornyaaaa : ${snapshot.error}");
         } else {
           return const Center(
             child: CircularProgressIndicator(),
@@ -275,56 +267,59 @@ class _BuildListBarangState extends State<BuildListBarang> {
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
         ),
-        itemCount: 8,
+        itemCount: 2,
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ItemPage(
-                    index: index,
-                    datanya: datanya,
-                  ),
-                ),
-              );
+              //FIXME: Masih error saat mau sampein ke page
+
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => ItemPage(
+              //       index: index,
+              //       datanya: datanya,
+              //     ),
+              //   ),
+              // );
             },
             child: Card(
               child: Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
-                  SizedBox(
-                    width: double.infinity,
-                    child: Image.network(
-                      datanya.gambarbarang.toString(),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Container(
-                    color: Colors.white,
-                    width: double.infinity,
-                    height: 40,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(datanya.namabarang),
-                              Text('\$${datanya.hargabarang}'),
-                            ],
-                          ),
-                          const Icon(
-                            Icons.add_circle_outlined,
-                            color: Colors.orange,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  Image.network(datanya[index].namabarang)
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: Image.network(
+                  //     datanya.barang.namabarang[0],
+                  //     fit: BoxFit.cover,
+                  //   ),
+                  // ),
+                  // Container(
+                  //   color: Colors.white,
+                  //   width: double.infinity,
+                  //   height: 40,
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.symmetric(horizontal: 10),
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         Column(
+                  //           mainAxisAlignment: MainAxisAlignment.center,
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             Text(datanya.namabarang),
+                  //             Text('\$${datanya.hargabarang}'),
+                  //           ],
+                  //         ),
+                  //         const Icon(
+                  //           Icons.add_circle_outlined,
+                  //           color: Colors.orange,
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               ),
             ),

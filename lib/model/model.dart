@@ -1,22 +1,13 @@
 class ModelBarang {
-  final String namabarang;
-  final String gambarbarang;
-  final String deskripsibarang;
-  final double hargabarang;
+  String namatoko;
+  String namabarang;
 
-  ModelBarang({
-    required this.namabarang,
-    required this.gambarbarang,
-    required this.deskripsibarang,
-    required this.hargabarang,
-  });
+  ModelBarang({required this.namatoko, required this.namabarang});
 
   factory ModelBarang.fromJson(Map<String, dynamic> json) {
     return ModelBarang(
+      namatoko: json['namatoko'],
       namabarang: json['namabarang'],
-      gambarbarang: json['gambarbarang'],
-      deskripsibarang: json['deskripsibarang'],
-      hargabarang: json['hargabarang'],
     );
   }
 }
