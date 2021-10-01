@@ -271,17 +271,15 @@ class _BuildListBarangState extends State<BuildListBarang> {
         itemBuilder: (BuildContext context, int index) {
           return GestureDetector(
             onTap: () {
-              //FIXME: Masih error saat mau sampein ke page
-
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => ItemPage(
-              //       index: index,
-              //       datanya: datanya,
-              //     ),
-              //   ),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ItemPage(
+                    index: index,
+                    datanya: datanya,
+                  ),
+                ),
+              );
             },
             child: Card(
               child: Stack(

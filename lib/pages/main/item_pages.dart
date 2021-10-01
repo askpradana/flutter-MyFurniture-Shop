@@ -46,11 +46,11 @@ class _ItemPageState extends State<ItemPage> {
         child: Column(
           children: [
             buildItemPagesAppbar(),
-            buildGambarBarang(datanya, index),
-            // buildNamaBarang(datanya),
-            // buildHargaDanKuantitas(datanya, untukstream, eventSink),
-            // buildDeskripsiItem(datanya),
-            // buildTombolBuyNow(),
+            buildGambarBarang(index, datanya),
+            buildNamaBarang(index, datanya),
+            buildHargaDanKuantitas(datanya, untukstream, eventSink),
+            buildDeskripsiItem(index, datanya),
+            buildTombolBuyNow(),
           ],
         ),
       ),
@@ -82,14 +82,13 @@ class _ItemPageState extends State<ItemPage> {
   }
 
   buildGambarBarang(index, datanya) {
-    return Image.asset(
-      // 'assets/images/kursi.jpg',
-      datanya[0].namabarang,
+    return Image.network(
+      datanya[index].namabarang,
       fit: BoxFit.cover,
     );
   }
 
-  buildNamaBarang(datanya) {
+  buildNamaBarang(index, datanya) {
     return SizedBox(
       width: double.infinity,
       child: Padding(
@@ -97,7 +96,7 @@ class _ItemPageState extends State<ItemPage> {
           vertical: 20,
         ),
         child: Text(
-          "Nama barang : ${datanya.namabarang}",
+          datanya[index].namatoko,
           style: const TextStyle(
             fontSize: 22,
             fontWeight: FontWeight.bold,
@@ -112,7 +111,8 @@ class _ItemPageState extends State<ItemPage> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          "\$${datanya.hargabarang}",
+          // "\$${datanya.hargabarang}",
+          '\$8000 ubah aing',
           style: const TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -153,13 +153,13 @@ class _ItemPageState extends State<ItemPage> {
     );
   }
 
-  buildDeskripsiItem(datanya) {
+  buildDeskripsiItem(index, datanya) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: 20,
       ),
       child: Text(
-        datanya.deskripsibarang,
+        datanya[index].namatoko,
         style: const TextStyle(
           color: Colors.grey,
           fontSize: 18,
